@@ -61,7 +61,7 @@ def district_marker(category):
         avg_lng = sum(longitudes) / len(longitudes)
 
         popup_html = f"""
-            <a href="/{category}/{district}"> [click]
+            <a href="/find/{category}/{district}"> [click]
                 <div style="font-size: 16px; color: black;">
                     <strong>{district} : {len(locs)}곳</strong>
                 </div>

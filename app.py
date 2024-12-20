@@ -21,13 +21,6 @@ def potatoes_district(category, district):
 
     return render_template('find_winterSnack.html', map_html=map_html)
 
-@app.after_request
-def add_header(response):
-    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
-    return response
-
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
