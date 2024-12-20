@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-# leaflet에서 필요한 html 코드를 대신 만들어 주는 라이브러리... wrapper 함수
 
 import map
 
