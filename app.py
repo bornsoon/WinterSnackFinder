@@ -9,13 +9,13 @@ app = Flask(__name__)
 def home():
     return render_template('finder_main.html')
 
-@app.route('/<category>')
+@app.route('/find/<category>')
 def potatoes(category):
     map_html = map.district_marker(category)
 
     return render_template('find_winterSnack.html', map_html=map_html)
 
-@app.route('/<category>/<district>')
+@app.route('/find/<category>/<district>')
 def potatoes_district(category, district):
     map_html = map.detail_marker(category, district)
 
