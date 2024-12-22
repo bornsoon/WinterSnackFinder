@@ -56,29 +56,29 @@ def csv_reader(category):
     return spot_dict
 
 
-def district_csv_reader(category, dist_code):
-    spot_dict = {}
+# def district_csv_reader(category, dist_code):
+#     spot_dict = {}
 
-    with open('static/seoul/seoul.csv', 'r', encoding='utf-8') as file:
-        csv_reader = csv.reader(file)
-        for i in next(csv_reader):
-            spot_dict[i] = []
+#     with open('static/seoul/seoul.csv', 'r', encoding='utf-8') as file:
+#         csv_reader = csv.reader(file)
+#         for i in next(csv_reader):
+#             spot_dict[i] = []
 
-    district = [key for key, value in district_code.items() if value == dist_code][0]
+#     district = [key for key, value in district_code.items() if value == dist_code][0]
 
-    with open('static/seoul/'+category+'_'+district+'.csv', 'r', encoding='utf-8') as file:
-        csv_reader = csv.DictReader(file)
-        spot_dict= []
+#     with open('static/seoul/'+category+'_'+district+'.csv', 'r', encoding='utf-8') as file:
+#         csv_reader = csv.DictReader(file)
+#         spot_dict= []
 
-        for l in csv_reader:
-            if l['latitude'] and l['longitude']:
-                if len(l['address'].split(',')) > 1:
-                    ad = l['address'].split(',')[0]
-                else:
-                    ad = l['address']
-                row = {'address': ad, 'latitude': float(l['latitude']), 'longitude': float(l['longitude'])}
-                spot_dict.append(row)
-    return spot_dict
+#         for l in csv_reader:
+#             if l['latitude'] and l['longitude']:
+#                 if len(l['address'].split(',')) > 1:
+#                     ad = l['address'].split(',')[0]
+#                 else:
+#                     ad = l['address']
+#                 row = {'address': ad, 'latitude': float(l['latitude']), 'longitude': float(l['longitude'])}
+#                 spot_dict.append(row)
+#     return spot_dict
 
 
 def district_marker(category):
@@ -121,10 +121,12 @@ def district_marker(category):
 
 
 def detail_marker(category, dist_code):
-    spot_dict = district_csv_reader(category, dist_code)
+    spot_dict = csv_reader(category)
 
-    latitudes = [loc['latitude'] for loc in spot_dict]
-    longitudes = [loc['longitude'] for loc in spot_dict]
+    district = [key for key, value in district_code.items() if value == dist_code][0]
+
+    latitudes = [loc['latitude'] for loc in spot_dict[district]]
+    longitudes = [loc['longitude'] for loc in spot_dict[district]]
     avg_lat = sum(latitudes) / len(latitudes)
     avg_lng = sum(longitudes) / len(longitudes)
 
@@ -133,7 +135,7 @@ def detail_marker(category, dist_code):
     mymap = folium.Map(location=map_center, zoom_start=14)
         
     # 마커 추가
-    for spot in spot_dict: 
+    for spot in spot_dict[district]: 
         popup_html = f"""
             <div style="font-size: 16px; color: black;">
                 <strong>{spot['address']}</strong>
