@@ -7,18 +7,3 @@
     { "src": "/", "dest": "app.py" }
   ]
 }
-
-// {
-//   "version": 2,
-//   "functions": {
-//     "app.py": {
-//       "runtime": "python"
-//     }
-//   },
-//   "routes": [
-//     {
-//       "src": "/(.*)",
-//       "dest": "app.py"
-//     }
-//   ]
-// }
