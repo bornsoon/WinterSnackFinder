@@ -3,6 +3,13 @@ import csv
 import folium
 import folium.plugins
 
+district_code = {}
+
+with open('static/seoul/bungeoppang_seoul.csv', 'r', encoding='utf-8') as file:
+    csv_reader = csv.DictReader(file)
+    for i in csv_reader:
+        district_code.update(i)
+
 map_center = [37.55, 126.98] 
 
 # locate control 아이콘 설정
@@ -23,7 +30,7 @@ locate_control = LocateControl(
         cacheLocation = True
     )
 
-def spot_csv_reader(category):
+def csv_reader(category):
     spot_dict = {}
 
     with open('static/seoul/seoul.csv', 'r', encoding='utf-8') as file:
@@ -49,10 +56,35 @@ def spot_csv_reader(category):
     return spot_dict
 
 
+def district_csv_reader(category, dist_code):
+    spot_dict = {}
+
+    with open('static/seoul/seoul.csv', 'r', encoding='utf-8') as file:
+        csv_reader = csv.reader(file)
+        for i in next(csv_reader):
+            spot_dict[i] = []
+
+    district = [key for key, value in district_code.items() if value == dist_code][0]
+
+    with open('static/seoul/'+category+'_'+district+'.csv', 'r', encoding='utf-8') as file:
+        csv_reader = csv.DictReader(file)
+        spot_dict= []
+
+        for l in csv_reader:
+            if l['latitude'] and l['longitude']:
+                if len(l['address'].split(',')) > 1:
+                    ad = l['address'].split(',')[0]
+                else:
+                    ad = l['address']
+                row = {'address': ad, 'latitude': float(l['latitude']), 'longitude': float(l['longitude'])}
+                spot_dict.append(row)
+    return spot_dict
+
+
 def district_marker(category):
     mymap = folium.Map(location=map_center, zoom_start=12)
     
-    spot_dict = spot_csv_reader(category)
+    spot_dict = csv_reader(category)
 
     for district, locs in spot_dict.items():
         latitudes = [loc['latitude'] for loc in locs]
@@ -69,7 +101,7 @@ def district_marker(category):
         #     """
 
         popup_html = f"""
-            <div style="font-size: 16px; color: black; cursor: pointer" onclick="window.open('/find/{category}/{district}', '_blank')">
+            <div style="font-size: 16px; color: black; cursor: pointer" onclick="window.open('/find/{category}/{district_code[district]}', '_blank')">
                 <strong>{district} : {len(locs)}곳</strong>
             </div>
             """
@@ -88,11 +120,11 @@ def district_marker(category):
     return map_html
 
 
-def detail_marker(category, district):
-    spot_dict = spot_csv_reader(category)
+def detail_marker(category, dist_code):
+    spot_dict = district_csv_reader(category, dist_code)
 
-    latitudes = [loc['latitude'] for loc in spot_dict[district]]
-    longitudes = [loc['longitude'] for loc in spot_dict[district]]
+    latitudes = [loc['latitude'] for loc in spot_dict]
+    longitudes = [loc['longitude'] for loc in spot_dict]
     avg_lat = sum(latitudes) / len(latitudes)
     avg_lng = sum(longitudes) / len(longitudes)
 
@@ -101,7 +133,7 @@ def detail_marker(category, district):
     mymap = folium.Map(location=map_center, zoom_start=14)
         
     # 마커 추가
-    for spot in spot_dict[district]: 
+    for spot in spot_dict: 
         popup_html = f"""
             <div style="font-size: 16px; color: black;">
                 <strong>{spot['address']}</strong>
