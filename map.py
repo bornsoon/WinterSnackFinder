@@ -26,13 +26,13 @@ locate_control = LocateControl(
 def spot_csv_reader(category):
     spot_dict = {}
 
-    with open('seoul/seoul.csv', 'r', encoding='utf-8') as file:
+    with open('static/seoul/seoul.csv', 'r', encoding='utf-8') as file:
         csv_reader = csv.reader(file)
         for i in next(csv_reader):
             spot_dict[i] = []
 
     for district in spot_dict.keys():
-        with open('seoul/'+category+'_'+district+'.csv', 'r', encoding='utf-8') as file:
+        with open('static/seoul/'+category+'_'+district+'.csv', 'r', encoding='utf-8') as file:
             csv_reader = csv.DictReader(file)
             temp = []
 
