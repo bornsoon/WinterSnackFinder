@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify
 
 import map
+import urllib.parse
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ def potatoes(category):
 
 @app.route('/find/<category>/<district>')
 def potatoes_district(category, district):
+    district = urllib.parse.unquote(district)
     return render_template('find_winterSnack.html', title=district + '에서 '+ name[category])
 
 @app.route('/api/<category>')
@@ -26,6 +28,7 @@ def api_potatoes(category):
 
 @app.route('/api/<category>/<district>')
 def api_potatoes_district(category, district):
+    district = urllib.parse.unquote(district)
     map_html = map.detail_marker(category, district)
 
     return jsonify({"map_html": map_html})
