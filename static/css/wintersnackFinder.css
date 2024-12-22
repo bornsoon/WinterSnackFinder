@@ -25,8 +25,9 @@ html {
 
 .image-container {
   display: flex;
-  gap: 250px;
+  width: 100%;
   align-items: flex-end;
+  justify-content: space-evenly;
   perspective: 800px; /* 3D 효과 추가 */
 }
 
