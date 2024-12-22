@@ -69,8 +69,8 @@ def district_marker(category):
         #     """
 
         popup_html = f"""
-            <div style="font-size: 16px; color: black;" onclick="window.location.href='/find/{category}/{district}'">
-                <strong>[click] {district} : {len(locs)}곳</strong>
+            <div style="font-size: 16px; color: black; cursor: pointer" onclick="window.open('/find/{category}/{district}', '_blank')">
+                <strong>{district} : {len(locs)}곳</strong>
             </div>
             """
 
