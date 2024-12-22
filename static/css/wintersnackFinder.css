@@ -33,7 +33,7 @@ body {
     display: flex;
     flex-direction: column; /* 이미지와 문구를 세로로 정렬 */
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     height: 200px;
 }
 
@@ -70,6 +70,15 @@ body {
   }
   to {
     transform: rotate3d(1, 1, 0, 8deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .image-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
   }
 }
 

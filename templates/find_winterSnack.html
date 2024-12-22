@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SweetPotato</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/wintersnackFinder.css') }}" />
     <style>
         #map div {
@@ -11,10 +11,36 @@
             padding-bottom: 0 !important;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div id="map">
         {{ map_html | safe }}
     </div>
+    <script>
+        $(document).ready(function() {
+            // 현재 페이지의 URL에서 category와 district 추출
+            let currentUrl = window.location.pathname;  // 예: /find/sweetpotato/중구
+            let urlParts = currentUrl.split('/');
+            let category = urlParts[2];
+            let api_url = `/api/${category}`;
+
+            if (urlParts.length > 3) {
+                let district = urlParts[3];
+                api_url = `/api/${category}/${district}`;
+            }
+
+            $.ajax({
+                url: api_url,
+                method: 'GET',
+                success: function(response) {
+                    $('#map').html(response.map_html);
+                },
+                error: function() {
+                    alert("Error loading map!");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

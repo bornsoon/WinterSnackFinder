@@ -60,13 +60,20 @@ def district_marker(category):
         avg_lat = sum(latitudes) / len(latitudes)
         avg_lng = sum(longitudes) / len(longitudes)
 
+        # popup_html = f"""
+        #     <a href="/find/{category}/{district}"> [click]
+        #         <div style="font-size: 16px; color: black;">
+        #             <strong>{district} : {len(locs)}곳</strong>
+        #         </div>
+        #     </a>
+        #     """
+
         popup_html = f"""
-            <a href="/find/{category}/{district}"> [click]
-                <div style="font-size: 16px; color: black;">
-                    <strong>{district} : {len(locs)}곳</strong>
-                </div>
-            </a>
+            <div style="font-size: 16px; color: black;" onclick="window.location.href='/find/{category}/{district}'">
+                <strong>[click] {district} : {len(locs)}곳</strong>
+            </div>
             """
+
         folium.Marker(
                 location = [avg_lat, avg_lng],
                 popup = folium.Popup(popup_html, max_width=300),
