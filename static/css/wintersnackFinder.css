@@ -75,12 +75,12 @@ html {
   }
 }
 
-@media (max-width: 1000px), (max-height: 700px), (aspect-ratio: 3/4) {
+@media (max-width: 1200px), (max-height: 700px), (aspect-ratio: 3/4) {
   .image-container {
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: auto;
+    justify-content: space-evenly;
+    height: 100vh;
   }
 }
 
