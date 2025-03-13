@@ -9,7 +9,7 @@ seoul_map = folium.Map(location=[37.55, 126.98], tiles='OpenStreetMap', zoom_sta
 
 bungeoppang_code = {}
 
-with open('seoul/bungeoppang_seoul.csv', 'r', encoding='utf-8') as file:
+with open('static/seoul/bungeoppang_seoul.csv', 'r', encoding='utf-8') as file:
     csv_reader = csv.DictReader(file)
     for i in csv_reader:
         bungeoppang_code.update(i)
@@ -30,7 +30,7 @@ for district, code in bungeoppang_code.items():
         # "address" 필드에서 필요한 정보 추출
         item_list = json_data['itemListElement']
 
-        with open('seoul/bungeoppang_' + district + '.csv', 'w', encoding='utf-8', newline='') as file:
+        with open('static/seoul/bungeoppang_' + district + '.csv', 'w', encoding='utf-8', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['address', 'latitude', 'longitude'])
             address_list = set()
