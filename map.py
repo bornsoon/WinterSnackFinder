@@ -1,7 +1,7 @@
-# from folium.plugins.locate_control import LocateControl
+from folium.plugins.locate_control import LocateControl
 import csv
 import folium
-# import folium.plugins
+import folium.plugins
 
 district_code = {}
 
