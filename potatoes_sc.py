@@ -49,7 +49,6 @@ try:
 
         try:
             # 방법 1: 클래스로 특정 탭 선택
-            # 예: 'CAFE25' 탭 선택
             potatoes_tab =  WebDriverWait(driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.stsch_nav .nav_tap .potatoes')))
             potatoes_tab.click()
 
