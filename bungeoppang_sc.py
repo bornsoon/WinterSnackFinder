@@ -3,7 +3,7 @@ import folium
 import json
 import requests
 from bs4 import BeautifulSoup
-from geo import find_location
+from gps import find_location
 
 seoul_map = folium.Map(location=[37.55, 126.98], tiles='OpenStreetMap', zoom_start=12)
 
