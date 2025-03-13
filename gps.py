@@ -17,7 +17,6 @@ def find_location(address):
     # WebDriver 생성 시 옵션 추가
     driver = webdriver.Chrome(options=chrome_options)
     try:
-        # 구글 지도 URL 생성
         SEARCH_LOC_URL = 'https://gps.aply.biz/'
 
         driver.get(SEARCH_LOC_URL)
