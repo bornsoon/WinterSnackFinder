@@ -16,7 +16,7 @@ def snacks(category):
     return render_template('find_winterSnack.html', title=name[category])
 
 @app.route('/find/<category>/<dist_code>')
-def snacks_district(category):
+def snacks_district(category, dist_code):
     # district = urllib.parse.unquote(district)
     return render_template('find_winterSnack.html', title=name[category])
 
