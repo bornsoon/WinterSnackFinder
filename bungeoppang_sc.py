@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from gps import find_location
 
-# seoul_map = folium.Map(location=[37.55, 126.98], tiles='OpenStreetMap', zoom_start=12)
+seoul_map = folium.Map(location=[37.55, 126.98], tiles='OpenStreetMap', zoom_start=12)
 
 bungeoppang_code = {}
 
