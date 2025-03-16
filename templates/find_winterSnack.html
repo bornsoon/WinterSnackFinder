@@ -20,7 +20,7 @@
     <script>
         $(document).ready(function() {
             // 현재 페이지의 URL에서 category와 district 추출
-            let currentUrl = window.location.pathname;  // 예: /find/sweetpotato/중구
+            let currentUrl = window.location.pathname;  // 예:/find/sweetpotato/중구
             let urlParts = currentUrl.split('/');
             let category =  urlParts[2];
             let api_url = `/api/${category}`;
